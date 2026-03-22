@@ -44,9 +44,14 @@ echo "  installed /etc/nftables.conf"
 install -m 644 "${HOST_DIR}/sysctl/90-sysctl.conf" /etc/sysctl.d/90-sysctl.conf
 echo "  installed /etc/sysctl.d/90-sysctl.conf"
 
+# grub/grub -> /etc/default/grub
+install -m 644 "${HOST_DIR}/grub/grub" /etc/default/grub
+echo "  installed /etc/default/grub"
+
 echo ""
 echo "All configs deployed. To apply without rebooting:"
 echo "  sysctl --system                  # reload sysctl"
 echo "  systemctl restart frr            # reload FRR/OSPF"
 echo "  ifreload -a                      # reload network interfaces (ifupdown2)"
 echo "  nft -f /etc/nftables.conf        # reload nftables"
+echo "  update-grub                      # regenerate grub config"
