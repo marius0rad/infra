@@ -1,0 +1,56 @@
+auto lo
+iface lo inet loopback
+
+auto eno1
+iface eno1 inet manual
+	mtu 9000
+
+auto enp4s0
+iface enp4s0 inet manual
+	mtu 9000
+
+auto br0
+iface br0 inet manual
+	bridge-ports enp4s0
+	bridge-stp off
+	bridge-fd 0
+	mtu 9000
+	bridge-vlan-aware yes
+	bridge-vids 71,97,311
+
+auto br1
+iface br1 inet manual
+	bridge-ports eno1
+	bridge-stp off
+	bridge-fd 0
+	mtu 9000
+	bridge-vlan-aware yes
+	bridge-vids 72,98,312
+
+auto vlan97
+iface vlan97 inet static
+	address 172.31.97.102/24
+	vlan-raw-device br0
+	mtu 9000
+
+auto vlan98
+iface vlan98 inet static
+	address 172.31.98.102/24
+	vlan-raw-device br1
+	mtu 9000
+
+auto vlan311
+iface vlan311 inet static
+	address 172.31.125.102/24
+	vlan-raw-device br0
+	mtu 9000
+
+auto vlan312
+iface vlan312 inet static
+	 address 172.31.124.102/24
+	 vlan-raw-device br1
+	 mtu 9000
+
+iface wlp3s0 inet manual
+
+source /etc/network/interfaces.d/*

@@ -1,0 +1,15 @@
+auto loopback0
+iface loopback0 inet manual
+	pre-up ip link add loopback0 type dummy
+ 	up ip addr add 172.31.127.103/32 dev loopback0
+	post-up ip route add default via 172.31.125.1 dev vlan311 src 172.31.127.103 metric 3
+        post-up ip route add default via 172.31.124.1 dev vlan312 src 172.31.127.103 metric 4
+	down ip addr flush dev loopback0
+auto loopback1
+iface loopback1 inet manual
+	pre-up ip link add loopback1 type dummy
+	up ip addr add 192.168.70.3/32 dev loopback1
+	up ip addr add 192.168.70.4/32 dev loopback1
+	post-up ip route add 192.168.70.3/32 dev loopback1 scope link src 192.168.70.4
+	post-up ip route add 192.168.70.4/32 dev loopback1 scope link src 192.168.70.3
+	down ip addr flush dev loopback1
